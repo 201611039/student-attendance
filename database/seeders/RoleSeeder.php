@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
             ], [
                 'name' => 'admin', 'permissions' => [
                     ['user', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate']],
-                    ['group', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate', 'grant-permission']],
+                    ['role', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate', 'grant-permission']],
                 ]
             ], [
                 'permissions' => [

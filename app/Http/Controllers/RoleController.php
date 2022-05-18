@@ -16,9 +16,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('group-view');
+        $this->authorize('role-view');
 
-        return view('groups.index', [
+        return view('roles.index', [
             'roles' => Role::withTrashed()->get(),
         ]);
     }
@@ -30,9 +30,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->authorize('group-add');
+        $this->authorize('role-add');
 
-        return view('groups.add');
+        return view('roles.add');
     }
 
     /**
@@ -43,7 +43,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('group-add');
+        $this->authorize('role-add');
 
         $request->validate([
             'name' => ['required', 'string', 'unique:roles,name', 'max:50']
@@ -54,19 +54,19 @@ class RoleController extends Controller
             'guard_name' => 'web'
         ]);
 
-        toastr()->success('Group created successfully');
-        return redirect()->route('groups.index');
+        toastr()->success('role created successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $group
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $group)
+    public function show(Role $role)
     {
-        $this->authorize('group-grant-permission');
+        $this->authorize('role-grant-permission');
 
         $permissions = Permission::query()->get();
         $permissions = $permissions
@@ -74,24 +74,36 @@ class RoleController extends Controller
             return str_before($item['name'], '-', 0);
         })->sortKeys();
 
-        return view('groups.permissions', [
-            'group' => $group,
+        return view('roles.permissions', [
+            'role' => $role,
             'permissions' => $permissions
         ]);
+    }
+
+    public function grant(Request $request, Role $role)
+    {
+        $this->authorize('role-grant-permission');
+
+        $permissions = $request->except('_token');
+
+        $role->syncPermissions($permissions);
+
+        toastr()->success('Permissions granted successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $group
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $group)
+    public function edit(Role $role)
     {
-        $this->authorize('group-update');
+        $this->authorize('role-update');
 
-        return view('groups.edit', [
-            'group' => $group
+        return view('roles.edit', [
+            'role' => $role
         ]);
     }
 
@@ -99,57 +111,57 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $group
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $group)
+    public function update(Request $request, Role $role)
     {
-        $this->authorize('group-update');
+        $this->authorize('role-update');
 
         $request->validate([
-            'name' => ['required', 'string', "unique:roles,name,$group->id,id", 'max:50']
+            'name' => ['required', 'string', "unique:roles,name,$role->id,id", 'max:50']
         ]);
 
-        $group->update([
+        $role->update([
             'name' => $request->name,
         ]);
 
-        toastr()->success('Group updated successfully');
-        return redirect()->route('groups.index');
+        toastr()->success('role updated successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Role $group
+     * @param \App\Models\Role $role
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Role $group)
+    public function destroy(Role $role)
     {
-        if ($group->trashed()) {
-            $this->authorize('group-activate');
-            $group->restore();
+        if ($role->trashed()) {
+            $this->authorize('role-activate');
+            $role->restore();
             $action = 'restored';
         } else {
-            $this->authorize('group-deactivate');
-            $group->delete();
+            $this->authorize('role-deactivate');
+            $role->delete();
             $action = 'deleted';
         }
 
         toastr()->success("group $action successfully");
-        return redirect()->route('groups.index');
+        return redirect()->route('roles.index');
     }
 
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroyPermanently(Role $group)
+    public function destroyPermanently(Role $role)
     {
-        $this->authorize('group-delete');
-        $group->delete();
+        $this->authorize('role-delete');
+        $role->delete();
 
         toastr()->success("group removed permanently successfully");
-        return redirect()->route('groups.index');
+        return redirect()->route('roles.index');
     }
 }

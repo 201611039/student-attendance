@@ -28,6 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function ()
 
     Route::resource('users', UserController::class);
 
-    Route::get('group/grant-permission', [RoleController::class, 'grant'])->name('group.grant');
-    Route::resource('groups', RoleController::class);
+    Route::post('roles/{role}/grant-permission', [RoleController::class, 'grant'])->name('role.grant');
+    Route::resource('roles', RoleController::class);
 });
