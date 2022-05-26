@@ -24,6 +24,15 @@ class RoleSeeder extends Seeder
                     ['role', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate', 'grant-permission']],
                 ]
             ], [
+                'name' => 'student', 'permissions' => [
+                ]
+            ], [
+                'name' => 'lecturer', 'permissions' => [
+                ]
+            ], [
+                'name' => 'exam', 'permissions' => [
+                ]
+            ], [
                 'permissions' => [
                     // ['personal-information', 'action' => ['update', 'create', 'complete']],
                 ]
