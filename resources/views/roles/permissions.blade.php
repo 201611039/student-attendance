@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('title')
-    Permissions for {{title_case($group->name). ' Group'}}
+    Permissions for {{title_case($role->name). ' Role'}}
 @endpush
 
 @section('content')
@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form method="post" action="{{ route('group.grant', $group->name) }}" class="">
+                <form method="post" action="{{ route('role.grant', $role->name) }}" class="">
                     @csrf
                         @php
                             $header = '';
@@ -31,7 +31,7 @@
                                 @endif
                                     <div class="col-3">
                                         <div class="checkbox checkbox-info checkbox-circle">
-                                            <input id="checkbox{{ $permission->name }}" name="{{ $permission->name }}" value="{{ $permission->name }}" {{ $group->hasPermissionTo($permission->name)? 'checked':'' }} type="checkbox">
+                                            <input id="checkbox{{ $permission->name }}" name="{{ $permission->name }}" value="{{ $permission->name }}" {{ $role->hasPermissionTo($permission->name)? 'checked':'' }} type="checkbox">
                                             <label for="checkbox{{ $permission->name }}">
                                                 {{ $permission->name}}
                                             </label>
