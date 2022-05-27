@@ -1,7 +1,7 @@
 @php
     $navigations = collect([
         [
-            'title' => 'Dashboard', 'url' => route('dashboard'), 'permission' => request()->user()->hasAnyPermission('dashboard'), 'icon' => 'ri-dashboard-line', 'childrens' => collect(),
+            'title' => 'Dashboard', 'url' => route('dashboard'), 'permission' => true, 'icon' => 'ri-dashboard-line', 'childrens' => collect(),
         ], [
             'title' => 'Users Mgt', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('user-view', 'user-add', 'user-update', 'user-delete', 'user-activate', 'user-deactivate'), 'icon' => 'ri-group-line', 'childrens' => collect([
                 [
@@ -28,6 +28,7 @@
               <li class="menu-title">Menu</li>
 
               @foreach ($navigations as $navigation)
+                @if($navigation['permission'])
                 <li>
                     <a href="{{ $navigation['url'] }}" class="{{ ($navigation['childrens']->count()) ? 'has-arrow':'' }} waves-effect">
                         <i class="{{ $navigation['icon'] }}"></i>
@@ -36,19 +37,26 @@
                     @if ($navigation['childrens'])
                         <ul class="sub-menu" aria-expanded="true">
                             @foreach ($navigation['childrens'] as $navChild1)
+                                @if($navChild1['permission'])
                                 <li><a href="{{ $navChild1['url'] }}" class="{{ ($navChild1['childrens']??false) ? 'has-arrow':'' }}">{{ $navChild1['title'] }}</a>
                                     @if ($navChild1['children']??false)
                                         <ul class="sub-menu" aria-expanded="true">
                                             @foreach ($navChild1['children'] as $child)
+                                                @if($child['permission'])
                                                 <li><a href="{{ $child['url'] }}">{{ $child['title'] }}</a></li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     @endif
                                 </li>
+                                @endif
+                                
                             @endforeach
                         </ul>
                     @endif
                 </li>
+                @endif
+                
               @endforeach
 
           </ul>

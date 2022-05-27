@@ -31,7 +31,7 @@
           </button>
 
           <div class="d-flex align-items-center mt-2 ml-4">
-              <h5>Welcome to Student Exam Athorization Based on Attendance System</h5>
+              <h5>WELCOME TO STUDENT EXAM AUTHORIZATION BASED ON ATTENDANCE SYSTEM</h5>
           </div>
 
           <!-- App Search-->

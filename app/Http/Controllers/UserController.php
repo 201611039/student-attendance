@@ -17,7 +17,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {    
+        $this->authorize('user-view');
+
         return view('users.index', [
             'users' => User::getUsers(),
         ]);
@@ -30,6 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('user-add');
+
         return view('users.add', [
             'groups' => Role::all(),
         ]);
