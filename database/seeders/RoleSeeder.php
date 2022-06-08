@@ -28,6 +28,8 @@ class RoleSeeder extends Seeder
                 ]
             ], [
                 'name' => 'lecturer', 'permissions' => [
+                    ['course-management', 'module' => 'lecturer', 'action' => ['view', 'enroll']],
+                    ['attendance-take', 'module' => 'lecturer', 'action' => ['class', 'exam']],
                 ]
             ], [
                 'name' => 'exam', 'permissions' => [
