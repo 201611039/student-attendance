@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    public function IndexClassPage()
+
+    public function indexClassPage()
+    {
+        return view('attendance.index');
+    }
+
+    public function classForm()
     {
         $courses = [];
         return view('attendance.class', [
@@ -23,13 +29,37 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.class.fingerprint');
     }
 
-    public function fingerprint()
+    public function classFingerprintPage()
     {
-        return view('attendance.fingerprint');
+        return view('attendance.class-fingerprint');
     }
 
-    public function exam()
+    public function indexExamPage()
     {
-        return 0;
+        return view('verification.index');
+    }
+
+    public function examForm()
+    {
+        $courses = [];
+        return view('verification.exam', [
+            'courses' => $courses
+        ]);
+    }
+
+    public function examVerify(Request $request)
+    {
+        // TODO: Logics Check course if they are free for exam
+        
+        // TODO: Logics for creating a exam session
+
+        // TODO: Logics for communication with fingerprint if necessary
+
+        return redirect()->route('exam.verification.fingerprint');
+    }
+
+    public function examFingerprintPage()
+    {
+        return view('verification.exam-fingerprint');
     }
 }

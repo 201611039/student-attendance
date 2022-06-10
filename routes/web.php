@@ -40,13 +40,17 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::post('/enroll', 'enroll')->name('enroll.students.store');
     });
     
-    Route::prefix('attendance')->controller(AttendanceController::class)->group(function ()
+    Route::controller(AttendanceController::class)->group(function ()
     {
-        Route::get('/class', 'IndexClassPage')->name('attendance.class');
+        Route::get('/class-attendance-list', 'indexClassPage')->name('attendance.list');
+        Route::get('/class', 'classForm')->name('attendance.class');
         Route::post('/class', 'classAttend')->name('attendance.class.check');
-        Route::get('/class/verification', 'fingerprint')->name('attendance.class.fingerprint');
+        Route::get('/class/attendance', 'classFingerprintPage')->name('attendance.class.fingerprint');
         
-        Route::get('/exam', 'exam')->name('attendance.exam');
+        Route::get('/exam-verification-list', 'indexExamPage')->name('exam.list');
+        Route::get('/exam', 'examForm')->name('verification.exam');
+        Route::post('/exam', 'examVerify')->name('verification.exam.check');
+        Route::get('/exam/verification', 'examFingerprintPage')->name('exam.verification.fingerprint');
     });
 });
 

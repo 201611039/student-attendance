@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('title')
+    Verify
+@endpush
+
 @section('content')
         
 <div class="row">

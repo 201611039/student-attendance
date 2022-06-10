@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('title')
-    Class Attendance
+    Exam Verification
 @endpush
 
 @section('content')
@@ -12,15 +12,15 @@
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-sm-8">
-                        <form action="{{ route('attendance.class.check') }}" method="post">
+                        <form action="{{ route('verification.exam.check') }}" method="post">
                             @csrf
 
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Course</label>
-                                        <select data-placeholder="Select Course" name="course" class="form-control @error('course') is-invalid @enderror">
-                                            <option value="{{ null }}">Choose course</option>
+                                        <label class="control-label">Courses</label>
+                                        <select data-placeholder="Select Courses" multiple name="courses[]" class="form-control @error('course') is-invalid @enderror">
+                                            <option value="{{ null }}">Choose courses</option>
                                         </select>
     
                                         @error('course')
@@ -33,34 +33,21 @@
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Method</label>
-                                        <select data-placeholder="Select method of enrollement" name="method" class="form-control @error('method') is-invalid @enderror">
-                                            <option value="{{ null }}">Choose method</option>
-                                            <option value="fingerprint">By Fingerprint</option>
-                                            <option value="file">By File</option>
-                                        </select>
-    
-                                        @error('method')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <label class="control-label">Venue</label>
+                                        <input type="text" class="form-control" name="venue">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                    <label class="control-label">Excel File</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
+                                        <label class="control-label">Select Date</label>
+                                        <input type="datetime-local" class="form-control" name="date">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Take Attendance <i class="ri-login-box-line align-middle"></i></button>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Verify <i class=" ri-user-follow-line align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>

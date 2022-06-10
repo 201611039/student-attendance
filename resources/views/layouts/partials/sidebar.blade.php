@@ -10,6 +10,8 @@
                     'title' => 'Add', 'url' => route('users.create'), 'permission' => request()->user()->hasAnyPermission('user-add')
                 ], [
                     'title' => 'Roles', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
+                ], [
+                    'title' => 'Fingerprint', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
                 ]
             ]),
 
@@ -32,13 +34,19 @@
                 ]
             ]),
         ], [
-            'title' => 'Attendance', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('attendance-take-class', 'attendance-take-exam'), 'icon' => 'ri-contacts-line ', 'childrens' => collect([
+            'title' => 'Attendance', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('attendance-take-class'), 'icon' => 'ri-contacts-line ', 'childrens' => collect([
                 [
-                    'title' => 'View Attendance', 'url' => '#', 'permission' => request()->user()->hasAnyPermission('attendance-take-class')
+                    'title' => 'View Attendance', 'url' => route('attendance.list'), 'permission' => request()->user()->hasAnyPermission('attendance-take-class')
                 ], [
                     'title' => 'Take Class Attendance', 'url' => route('attendance.class'), 'permission' => request()->user()->hasAnyPermission('attendance-take-class')
+                ]
+            ]),
+        ], [
+            'title' => 'Verification', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('attendance-take-exam'), 'icon' => 'ri-shield-user-line ', 'childrens' => collect([
+                [
+                    'title' => 'View Exam Verifications', 'url' => route('exam.list'), 'permission' => request()->user()->hasAnyPermission('attendance-take-class')
                 ], [
-                    'title' => 'Take Exam Attendance', 'url' => route('attendance.exam'), 'permission' => request()->user()->hasAnyPermission('attendance-take-exam')
+                    'title' => 'Exam Verification', 'url' => route('verification.exam'), 'permission' => request()->user()->hasAnyPermission('attendance-take-exam')
                 ]
             ]),
         ]

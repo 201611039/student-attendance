@@ -1,21 +1,31 @@
 @extends('layouts.app')
 
 @push('title')
-    List
+    View Attendance List
 @endpush
 
 @section('content')
 <div class="row">
     <div class="col-12">
+        <div class="row mb-2">
+            <div class="form-group col-4">
+                <select name="course" id="" class="form-control">
+                    <option value="{{null}}">Select Course</option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
-                <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Phone</th>
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th># Students</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -23,35 +33,36 @@
 
 
                     <tbody>
-                        @foreach ($users as $user)
+                        {{-- @foreach ($courses as $key => $course)
                             <tr>
-                                <td>{{ $user->full_name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $course->full_name }}</td>
+                                <td>{{ $course->email }}</td>
                                 <td>
-                                    @foreach ($user->roles as $role)
+                                    @foreach ($course->roles as $role)
                                        <span class="badge badge-primary">{{ title_case(str_replace('-', ' ', $role->name)) }}</span>
                                     @endforeach
                                 </td>
-                                <td>{{ $user->phone }}</td>
+                                <td>{{ $course->phone }}</td>
                                 <td class="text-center">
-                                    @if ($user->deleted_at)
+                                    @if ($course->deleted_at)
                                         <span class="badge badge-pill badge-danger">Inactive</span>
                                     @else
                                         <span class="badge badge-pill badge-primary">Active</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($user->deleted_at)
-                                        <a href="javascript:void(0)" onclick="$('#{{ $user->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
+                                    @if ($course->deleted_at)
+                                        <a href="javascript:void(0)" onclick="$('#{{ $course->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
                                     @else
-                                        <a href="{{ route('users.edit', $user->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
-                                        <a href="javascript:void(0)" onclick="$('#{{ $user->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
+                                        <a href="{{ route('users.edit', $course->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
+                                        <a href="javascript:void(0)" onclick="$('#{{ $course->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
 
                                     @endif
-                                    <form id="{{ $user->username }}" action="{{ route('users.destroy', $user->username) }}" method="post">@csrf @method('DELETE')</form>
+                                    <form id="{{ $course->username }}" action="{{ route('users.destroy', $course->username) }}" method="post">@csrf @method('DELETE')</form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
 
