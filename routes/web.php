@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\CourseManagementController;
+use App\Models\Department;
+use App\Models\College;
+use App\Models\Programme;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CourseManagementController;
+use App\Models\Enrollment;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +42,28 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/', 'viewCourses')->name('view.courses');
         Route::get('/enroll', 'enrollPage')->name('enroll.students');
         Route::post('/enroll', 'enroll')->name('enroll.students.store');
+
+        Route::get('/allocate', 'allocateLecturersPage')->name('allocate.lecturers');
+        Route::post('/allocate', 'allocateLecturer')->name('allocate.lecturers.store');
     });
+
+    Route::middleware('permission:college-view')->get('colleges', function ()
+    {
+        return view('colleges.index', ['colleges' => College::all()]);
+    })
+    ->name('college.index');
+
+    Route::middleware('permission:departement-view')->get('departements', function ()
+    {
+        return view('departments.index', ['departments' => Department::all()]);
+    })
+    ->name('department.index');
+
+    Route::middleware('permission:programme-view')->get('programmes', function ()
+    {
+        return view('programmes.index', ['programmes' => Programme::all()]);
+    })
+    ->name('programme.index');
     
     Route::controller(AttendanceController::class)->group(function ()
     {
@@ -51,6 +76,11 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/exam', 'examForm')->name('verification.exam');
         Route::post('/exam', 'examVerify')->name('verification.exam.check');
         Route::get('/exam/verification', 'examFingerprintPage')->name('exam.verification.fingerprint');
+    });
+
+    Route::get('/test', function ()
+    {
+        return Enrollment::with('student')->get()->pluck('student.id');
     });
 });
 

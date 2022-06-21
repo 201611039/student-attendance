@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('title')
-    List
+    View List of Programmes
 @endpush
 
 @section('content')
@@ -14,38 +14,39 @@
                     <tr>
                         <th>S/N</th>
                         <th>Name</th>
-                        <th>Code</th>
-                        <th># Students</th>
+                        <th>Short Name</th>
+                        <th>Department</th>
+                        {{-- <th># Students</th> --}}
                         <th class="text-center">Status</th>
-                        {{-- <th class="text-center">Action</th> --}}
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
 
 
                     <tbody>
-                        @foreach ($lecturerCourses as $key => $lecturerCourses)
+                        @foreach ($programmes as $key => $programme)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $lecturerCourses->course->name }}</td>
-                                <td>{{ $lecturerCourses->course->code }}</td>
-                                <td>{{ $lecturerCourses->course->specificEnrollments()->count() }}</td>
+                                <td>{{ $programme->name }}</td>
+                                <td>{{ $programme->code }}</td>
+                                <td>{{ $programme->department->name }}</td>
                                 <td class="text-center">
-                                    @if ($lecturerCourses->deleted_at)
+                                    @if ($programme->deleted_at)
                                         <span class="badge badge-pill badge-danger">Inactive</span>
                                     @else
                                         <span class="badge badge-pill badge-primary">Active</span>
                                     @endif
                                 </td>
-                                {{-- <td class="text-center">
-                                    @if ($lecturerCourses->course->deleted_at)
-                                        <a href="javascript:void(0)" onclick="$('#{{ $lecturerCourses->course->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
+                                <td class="text-center">
+                                    @if ($programme->deleted_at)
+                                        <a href="javascript:void(0)" onclick="$('{{ $programme->slug }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
                                     @else
-                                        <a href="{{ route('users.edit', $lecturerCourses->course->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
-                                        <a href="javascript:void(0)" onclick="$('#{{ $lecturerCourses->course->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
+                                        <a href="{{-- {{ route('colleges.edit', $programme->slug) }} --}}#" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
+                                        <a href="javascript:void(0)" onclick="$('{{ $programme->slug }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
 
                                     @endif
-                                    <form id="{{ $lecturerCourses->course->username }}" action="{{ route('users.destroy', $lecturerCourses->course->username) }}" method="post">@csrf @method('DELETE')</form>
-                                </td> --}}
+                                    <form id="{{ $programme->slug }}" action="{{-- {{ route('colleges.destroy', $programme->slug) }} --}}" method="post">@csrf @method('DELETE')</form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

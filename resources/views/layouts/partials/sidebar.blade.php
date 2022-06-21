@@ -18,11 +18,11 @@
         ], [
             'title' => 'Setting', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('user-view', 'user-add', 'user-update', 'user-delete', 'user-activate', 'user-deactivate'), 'icon' => 'ri-folder-settings-line', 'childrens' => collect([
                 [
-                    'title' => 'College', 'url' => route('users.index'), 'permission' => request()->user()->hasAnyPermission('user-view')
+                    'title' => 'College', 'url' => route('college.index'), 'permission' => request()->user()->hasAnyPermission('college-view')
                 ], [
-                    'title' => 'Department', 'url' => route('users.create'), 'permission' => request()->user()->hasAnyPermission('user-add')
+                    'title' => 'Department', 'url' => route('department.index'), 'permission' => request()->user()->hasAnyPermission('department-view')
                 ], [
-                    'title' => 'Programme', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
+                    'title' => 'Programme', 'url' => route('programme.index'), 'permission' => request()->user()->hasAnyPermission('programme-view')
                 ]
             ]),
         ], [
@@ -31,6 +31,8 @@
                     'title' => 'List', 'url' => route('view.courses'), 'permission' => request()->user()->hasAnyPermission('course-management-view')
                 ], [
                     'title' => 'Enroll', 'url' => route('enroll.students'), 'permission' => request()->user()->hasAnyPermission('course-management-enroll')
+                ], [
+                    'title' => 'Allocate', 'url' => route('allocate.lecturers'), 'permission' => request()->user()->hasAnyPermission('course-management-allocate')
                 ]
             ]),
         ], [

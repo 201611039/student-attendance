@@ -66,6 +66,10 @@ class User extends Authenticatable implements ContractsAuditable
         return $query->where([['id', '!=', 1], ['id', '!=', auth()->id()]])->withTrashed()->get();
     }
 
+    public function myCourses()
+    {
+        return $this->hasMany(CourseLecturer::class, 'lecturer_id');
+    }
 
     public function resolveRouteBinding($value, $field = null)
     {

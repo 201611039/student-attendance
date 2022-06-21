@@ -22,6 +22,10 @@ class RoleSeeder extends Seeder
                 'name' => 'admin', 'permissions' => [
                     ['user', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate']],
                     ['role', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate', 'grant-permission']],
+                    ['college', 'module' => 'administration', 'action' => ['view']],
+                    ['department', 'module' => 'administration', 'action' => ['view']],
+                    ['programme', 'module' => 'administration', 'action' => ['view']],
+                    ['course-management', 'module' => 'lecturer', 'action' => ['view', 'enroll', 'allocate']],
                 ]
             ], [
                 'name' => 'student', 'permissions' => [
@@ -29,7 +33,7 @@ class RoleSeeder extends Seeder
             ], [
                 'name' => 'lecturer', 'permissions' => [
                     ['course-management', 'module' => 'lecturer', 'action' => ['view', 'enroll']],
-                    ['attendance-take', 'module' => 'lecturer', 'action' => ['class', 'exam']],
+                    ['attendance', 'module' => 'lecturer', 'action' => ['take-class', 'take-exam', 'view-class', 'view-exam']],
                 ]
             ], [
                 'name' => 'exam', 'permissions' => [

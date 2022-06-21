@@ -9,9 +9,18 @@
     <div class="col-12">
         <div class="row mb-2">
             <div class="form-group col-4">
-                <select name="course" id="" class="form-control">
-                    <option value="{{null}}">Select Course</option>
+                <select data-placeholder="Select Course" name="course_id" class="form-control @error('course_id') is-invalid @enderror">
+                    <option value="{{ null }}">Choose course</option>
+                    @foreach ($lectureCourses as $lectureCourse)
+                        <option value="{{$lectureCourse->course->id}}">{{ $lectureCourse->course->name }} - {{ $lectureCourse->course->code }}</option>
+                    @endforeach
                 </select>
+
+                @error('course_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group col-4">
                 <button class="btn btn-primary">Submit</button>

@@ -23,6 +23,14 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'email' => 'malthatelenga22@gmail.com',
                 'password' => bcrypt('12345678'),
+            ], [
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'username' => 'john',
+                'role' => 'lecturer',
+                'email_verified_at' => now(),
+                'email' => 'john@test.com',
+                'password' => bcrypt('DOE'),
             ]
         ];
 
