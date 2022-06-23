@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Attendance;
 use App\Models\AcademicYear;
 use App\Models\Period;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -44,7 +45,8 @@ class AttendanceImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
                                 ])->id,
 
             'venue' => $this->venue,
-            'period_time' => $this->period_time
+            'period_time' => $this->period_time,
+            'name' => Carbon::parse($this->period_time)->getTimestamp()
         ]);
     }
 

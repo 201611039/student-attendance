@@ -10,6 +10,7 @@ class Attendance extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $with = ['periods'];
 
     public function course()
     {

@@ -5,18 +5,60 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\AttendanceImport;
 use App\Models\Course;
+use App\Models\Period;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class AttendanceController extends Controller
 {
 
-    public function indexClassPage()
+    public function indexClassPage(Request $request)
     {
         $this->authorize('attendance-view-class');
+        if ($request->has('course_id')) {
+            
+            $periods = Period::currentAttendances()->whereHas('attendance.course', function (Builder $query)
+            {
+                $query->where('slug', request('course_id'));
+            })
+            ->get();
 
+            if ($periods->count()) {
+                $periods = $periods->mapToGroups(function ($item, $key) {
+                    return [$item['name'] => $item];
+                });
+
+            }
+            
+        } else {
+            $periods = [];
+        }
+        
         $lectureCourses = request()->user()->myCourses;
         return view('attendance.index', [
-            'lectureCourses' => $lectureCourses
+            'lectureCourses' => $lectureCourses,
+            'periods' => $periods,
+            'oldKey' => null,
+            'count' => 0,
+            'course_id' => $request->course_id
+        ]);
+    }
+    
+    public function detailsClassPage()
+    {
+        $this->authorize('attendance-view-class');
+            
+        $periods = Period::currentAttendances()
+        ->where('name', request('period_name'))
+        ->whereHas('attendance.course', function (Builder $query)
+        {
+            $query->where('slug', request('course_id'));
+        })
+        ->get();
+    
+        return view('attendance.details', [
+            'periods' => $periods,
+            'course_id' => request('course_id')
         ]);
     }
 

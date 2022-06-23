@@ -16,6 +16,7 @@ class CreatePeriodsTable extends Migration
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
             $table->dateTime('period_time');
             $table->string('venue')->nullable();
             $table->timestamps();

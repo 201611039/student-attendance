@@ -68,6 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
     Route::controller(AttendanceController::class)->group(function ()
     {
         Route::get('/class-attendance-list', 'indexClassPage')->name('attendance.list');
+        Route::get('/class-attendance-details/{period_name}/{course_id}', 'detailsClassPage')->name('attendance.details');
         Route::get('/class', 'classForm')->name('attendance.class');
         Route::post('/class', 'classAttend')->name('attendance.class.check');
         Route::get('/class/attendance', 'classFingerprintPage')->name('attendance.class.fingerprint');

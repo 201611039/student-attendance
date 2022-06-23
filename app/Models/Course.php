@@ -85,6 +85,15 @@ class Course extends Model
         return $this->hasMany(Enrollment::class);
     }
 
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function currentAttendances()
+    {
+        return $this->attendances()->where('academic_year_id', AcademicYear::current()->id)->get();
+    }
 
     /**
      * Get the enrollements of a specific academic year.

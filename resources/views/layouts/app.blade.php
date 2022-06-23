@@ -13,6 +13,7 @@
             $title = 'SEABAS';
             $segment1 = request()->segment(1);
             $segment2 = request()->segment(2);
+            $segment3 = request()->segment(3);
 
             if ($segment2) {
                 $segment1 = "$segment1 | $segment2";
@@ -70,9 +71,9 @@
 
                                         <div class="page-title-right">
                                             <ol class="breadcrumb m-0">
-                                                <li class="breadcrumb-item"><a href="javascript: void(0);">{{ title_case($segment1) }}</a></li>
-                                                @if ($segment2)
-                                                <li class="breadcrumb-item active">{{ title_case($segment2) }}</li>
+                                                <li class="breadcrumb-item"><a href="javascript: void(0);">{{ strtolower(str_replace('-', ' ',$segment1)) }}</a></li>
+                                                @if ($segment3)
+                                                <li class="breadcrumb-item active">{{ strtolower(str_replace('-', ' ',$segment3)) }}</li>
                                                 @endif
                                             </ol>
                                         </div>
