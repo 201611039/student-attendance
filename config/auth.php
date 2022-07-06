@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -61,8 +66,14 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'eloquent-webauthn',
             'model' => App\Models\User::class,
+        ],
+
+        'students' => [
+            // 'driver' => 'eloquent', // Default Eloquent User Provider 
+            'driver' => 'eloquent-webauthn',
+            'model' => App\Model\Student::class,
         ],
 
         // 'users' => [

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Programme;
+use DarkGhostHunter\Larapass\Contracts\WebAuthnAuthenticatable;
+use DarkGhostHunter\Larapass\WebAuthnAuthentication;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -11,11 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Authenticatable
+class Student extends Authenticatable implements WebAuthnAuthenticatable
 {
     use HasFactory;
     use HasSlug;
     use SoftDeletes;
+    use WebAuthnAuthentication;
 
     protected $guarded = [];
 
@@ -47,6 +50,17 @@ class Student extends Authenticatable
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+    
+
+    public function courseAttendance($course_id, $academicYear)
+    {
+        return $this->attendances()->where([['course_id', $course_id], ['academic_year_id', $academicYear->id]]);
     }
 
     public function scopeHasCourse($query, $course_id)

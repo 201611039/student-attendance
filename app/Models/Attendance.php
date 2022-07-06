@@ -10,7 +10,7 @@ class Attendance extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['periods'];
+    // protected $with = ['periods'];
 
     public function course()
     {
@@ -19,7 +19,7 @@ class Attendance extends Model
 
     public function periods()
     {
-        return $this->hasMany(Period::class);
+        return $this->hasMany(Period::class, 'attendance_id');
     }
 
     public function student()

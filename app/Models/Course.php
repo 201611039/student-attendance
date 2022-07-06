@@ -95,6 +95,21 @@ class Course extends Model
         return $this->attendances()->where('academic_year_id', AcademicYear::current()->id)->get();
     }
 
+    public function currentEnrollments()
+    {
+        return $this->enrollments()->where('academic_year_id', AcademicYear::current()->id)->get();
+    }
+
+    public function getAttendancesByYear($academicYear)
+    {
+        return $this->attendances()->where('academic_year_id', $academicYear->id);
+    }
+
+    public function getEnrollmentsByYear($academicYear)
+    {
+        return $this->enrollments()->where('academic_year_id', $academicYear->id);
+    }
+
     /**
      * Get the enrollements of a specific academic year.
      *

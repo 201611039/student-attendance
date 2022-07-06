@@ -33,7 +33,7 @@
                                         <select data-placeholder="Select Course" name="course_id" class="form-control @error('course_id') is-invalid @enderror">
                                             <option value="{{ null }}">Choose course</option>
                                             @foreach ($lectureCourses as $lectureCourse)
-                                                <option value="{{$lectureCourse->course->id}}">{{ $lectureCourse->course->name }} - {{ $lectureCourse->course->code }}</option>
+                                                <option value="{{$lectureCourse->course->id}}" {{ old('course_id') == $lectureCourse->course->id?'selected':'' }}>{{ $lectureCourse->course->name }} - {{ $lectureCourse->course->code }}</option>
                                             @endforeach
                                         </select>
     
@@ -50,8 +50,8 @@
                                         <label class="control-label">Method</label>
                                         <select id="method" onchange="checkForm()" data-placeholder="Select method of enrollement" name="method" class="form-control @error('method') is-invalid @enderror">
                                             <option value="{{ null }}">Choose method</option>
-                                            <option value="fingerprint">By Fingerprint</option>
-                                            <option value="file">By File</option>
+                                            <option {{ old('method') == 'fingerprint'? 'selected':'' }} value="fingerprint">By Fingerprint</option>
+                                            <option {{ old('method') == 'file'? 'selected':'' }} value="file">By File</option>
                                         </select>
     
                                         @error('method')
@@ -81,7 +81,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="datetime">Date and Time</label>
-                                        <input type="datetime-local" class="form-control @error('datetime') is-invalid @enderror" name="datetime" id="datetime" aria-describedby="helpId" placeholder="Enter time and date of the period">
+                                        <input type="datetime-local" class="form-control @error('datetime') is-invalid @enderror" value="{{ \Carbon\Carbon::parse(old('datetime', now()))->format('Y-m-d\TH:i') }}" name="datetime" id="datetime" aria-describedby="helpId" placeholder="Enter time and date of the period">
     
                                         @error('datetime')
                                             <div class="invalid-feedback">
@@ -94,7 +94,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="venue">Venue <small class="text-danger">(optional)</small></label>
-                                        <input type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" id="venue" placeholder="Enter venue name">
+                                        <input type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" value="{{ old('venue') }}" id="venue" placeholder="Enter venue name">
     
                                         @error('venue')
                                             <div class="invalid-feedback">

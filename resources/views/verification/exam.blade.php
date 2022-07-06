@@ -19,11 +19,13 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Courses</label>
-                                        <select data-placeholder="Select Courses" multiple name="courses[]" class="form-control @error('course') is-invalid @enderror">
-                                            <option value="{{ null }}">Choose courses</option>
+                                        <select data-placeholder="Select Courses" name="courses[]" class="form-control select2 @error('courses') is-invalid @enderror" multiple>
+                                            @foreach ($courses as $course)
+                                                <option value="{{$course->id}}" {{ collect(old('courses'))->contains($course->id)?'selected':'' }}>{{ $course->name }} - {{ $course->code }}</option>
+                                            @endforeach
                                         </select>
     
-                                        @error('course')
+                                        @error('courses')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -34,14 +36,26 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Venue</label>
-                                        <input type="text" class="form-control" name="venue">
+                                        <input type="text" value="{{ old('venue') }}" class="form-control @error('venue') is-invalid @enderror" name="venue">
+
+                                        @error('venue')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Select Date</label>
-                                        <input type="datetime-local" class="form-control" name="date">
+                                        <input type="datetime-local" value="{{ \Carbon\Carbon::parse(old('sit_date', now()))->format('Y-m-d\TH:i') }}" class="form-control @error('sit_date') is-invalid @enderror" name="sit_date">
+
+                                        @error('sit_date')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
 

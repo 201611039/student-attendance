@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DarkGhostHunter\Larapass\Contracts\WebAuthnAuthenticatable;
+use DarkGhostHunter\Larapass\WebAuthnAuthentication;
 use Laravolt\Avatar\Avatar;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,9 +14,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class User extends Authenticatable implements ContractsAuditable
+class User extends Authenticatable implements ContractsAuditable, WebAuthnAuthenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Auditable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Auditable, SoftDeletes, WebAuthnAuthentication;
 
     /**
      * The attributes that are mass assignable.
@@ -47,6 +49,11 @@ class User extends Authenticatable implements ContractsAuditable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->middle_name} {$this->last_name}";
+    }
+
+    public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function getTwoNamesAttribute()

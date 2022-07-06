@@ -10,7 +10,7 @@
                 <div class="media">
                     <div class="media-body overflow-hidden">
                         <p class="text-truncate font-size-14 mb-2">Number of Students</p>
-                        <h4 class="mb-0">{{ App\Models\User::role('student')->count() }}</h4>
+                        <h4 class="mb-0">{{ App\Models\Student::all()->count() }}</h4>
                     </div>
                     <div class="text-primary">
                         <i class="ri-user-line font-size-24"></i>

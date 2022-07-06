@@ -1,14 +1,17 @@
 <?php
 
-use App\Models\Department;
 use App\Models\College;
 use App\Models\Programme;
+use App\Models\Department;
+use App\Models\Enrollment;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseManagementController;
-use App\Models\Enrollment;
+use App\Http\Controllers\Auth\WebAuthnLoginController;
+use App\Http\Controllers\Auth\WebAuthnRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,17 +75,35 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/class', 'classForm')->name('attendance.class');
         Route::post('/class', 'classAttend')->name('attendance.class.check');
         Route::get('/class/attendance', 'classFingerprintPage')->name('attendance.class.fingerprint');
-        
+    });
+    
+    Route::controller(ExamController::class)->group(function ()
+    {
         Route::get('/exam-verification-list', 'indexExamPage')->name('exam.list');
         Route::get('/exam', 'examForm')->name('verification.exam');
         Route::post('/exam', 'examVerify')->name('verification.exam.check');
         Route::get('/exam/verification', 'examFingerprintPage')->name('exam.verification.fingerprint');
     });
 
-    Route::get('/test', function ()
+    Route::get('/test', [ExamController::class, 'percentage']);
+    Route::get('/fingerprint-test', function ()
     {
-        return Enrollment::with('student')->get()->pluck('student.id');
+        return view('test');
     });
+
+
+    Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
+    ->name('webauthn.register.options');
+    Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])
+    ->name('webauthn.register');
+
+    Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'])
+    ->name('webauthn.login.options');
+    Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
+    ->name('webauthn.login');
+
+
+
 });
 
 

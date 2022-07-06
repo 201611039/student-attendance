@@ -27,7 +27,7 @@
                         @foreach ($programmes as $key => $programme)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $programme->name }}</td>
+                                <td>{{ $programme->award->name }} in {{ $programme->name }}</td>
                                 <td>{{ $programme->code }}</td>
                                 <td>{{ $programme->department->name }}</td>
                                 <td class="text-center">

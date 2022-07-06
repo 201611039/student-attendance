@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Imports\AttendanceImport;
 use App\Models\Course;
 use App\Models\Period;
+use App\Traits\AttendancePercentage;
+use App\Traits\ExamEligibility;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Validators\ValidationException;
 
@@ -125,40 +127,4 @@ class AttendanceController extends Controller
         return view('attendance.class-fingerprint');
     }
 
-    public function indexExamPage()
-    {
-        $this->authorize('attendance-view-exam');
-
-        return view('verification.index');
-    }
-
-    public function examForm()
-    {
-        $this->authorize('attendance-take-exam');
-
-        $courses = Course::all();
-        return view('verification.exam', [
-            'courses' => $courses
-        ]);
-    }
-
-    public function examVerify(Request $request)
-    {
-        $this->authorize('attendance-take-exam');
-
-        // TODO: Logics Check course if they are free for exam
-        
-        // TODO: Logics for creating a exam session
-
-        // TODO: Logics for communication with fingerprint if necessary
-
-        return redirect()->route('exam.verification.fingerprint');
-    }
-
-    public function examFingerprintPage()
-    {
-        $this->authorize('attendance-take-exam');
-
-        return view('verification.exam-fingerprint');
-    }
 }

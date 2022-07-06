@@ -9,11 +9,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>Courses</th>
+                        <th>Name</th>
                         <th>Date</th>
                         <th>Venue</th>
                         <th># Students</th>
@@ -24,36 +24,38 @@
 
 
                     <tbody>
-                        {{-- @foreach ($courses as $key => $course)
+                        @foreach ($exams as $key => $exam)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $course->full_name }}</td>
-                                <td>{{ $course->email }}</td>
-                                <td>
-                                    @foreach ($course->roles as $role)
-                                       <span class="badge badge-primary">{{ title_case(str_replace('-', ' ', $role->name)) }}</span>
+                                {{-- <td>
+                                    @foreach ($exam->examCourses as $course)
+                                        <span class="badge badge-primary">{{ $course->code }}</span>
                                     @endforeach
-                                </td>
-                                <td>{{ $course->phone }}</td>
+                                </td> --}}
+                                <td>{{ $exam->name }}</td>
+                                <td>{{ $exam->sit_date->format('d-m-y, H:i') }}</td>
+                                <td>{{ $exam->venue }}</td>
+                                <td>{{ 0 }}</td>
                                 <td class="text-center">
-                                    @if ($course->deleted_at)
-                                        <span class="badge badge-pill badge-danger">Inactive</span>
+                                    @if ($exam->status)
+                                        <span class="badge badge-pill badge-danger">Closed</span>
                                     @else
-                                        <span class="badge badge-pill badge-primary">Active</span>
+                                        <span class="badge badge-pill badge-primary">Open</span>
                                     @endif
                                 </td>
-                                <td class="text-center">
-                                    @if ($course->deleted_at)
-                                        <a href="javascript:void(0)" onclick="$('#{{ $course->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
+                                <td></td>
+                                {{-- <td class="text-center">
+                                    @if ($exam->deleted_at)
+                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
                                     @else
-                                        <a href="{{ route('users.edit', $course->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
-                                        <a href="javascript:void(0)" onclick="$('#{{ $course->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
+                                        <a href="{{ route('users.edit', $exam->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
+                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
 
                                     @endif
-                                    <form id="{{ $course->username }}" action="{{ route('users.destroy', $course->username) }}" method="post">@csrf @method('DELETE')</form>
-                                </td>
+                                    <form id="{{ $exam->username }}" action="{{ route('users.destroy', $exam->username) }}" method="post">@csrf @method('DELETE')</form>
+                                </td> --}}
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
 

@@ -18,8 +18,8 @@ class CreateWebAuthnTables extends Migration
 
             $table->string('id', 255);
 
-            // Change accordingly for your students table if you need to.
-            $table->unsignedBigInteger('student_id');
+            // Change accordingly for your users table if you need to.
+            $table->unsignedBigInteger('user_id');
 
             $table->string('name')->nullable();
             $table->string('type', 16);
@@ -30,15 +30,15 @@ class CreateWebAuthnTables extends Migration
             $table->binary('public_key');
             $table->unsignedInteger('counter')->default(0);
 
-            // This saves the external "ID" that identifies the student. We use UUID default
+            // This saves the external "ID" that identifies the user. We use UUID default
             // since it's very straightforward. You can change this for a plain string.
-            // It must be nullable because those old U2F keys do not use student handle.
-            $table->uuid('student_handle')->nullable();
+            // It must be nullable because those old U2F keys do not use user handle.
+            $table->uuid('user_handle')->nullable();
 
             $table->timestamps();
             $table->softDeletes(WebAuthnCredential::DELETED_AT);
 
-            $table->primary(['id', 'student_id']);
+            $table->primary(['id', 'user_id']);
         });
 
         Schema::create('web_authn_recoveries', function (Blueprint $table) {

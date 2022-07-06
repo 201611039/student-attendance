@@ -30,7 +30,7 @@
         </form>
         <div class="card">
             <div class="card-body">
-                <table id="" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr>
                         <th>S/N</th>
@@ -58,7 +58,7 @@
                                 {{ \Carbon\Carbon::parse($key)->format('d-m-Y H:i') }}
                             </td>
                             <td class="text-center">{{ $period->count() }}</td>
-                            <td class="text-center"><a href="{{ route('attendance.details', [$key, $course_id]) }}" class="btn btn-sm btn-info">Details</a></td>
+                            <td class="text-center"><a href="{{ route('attendance.details', [$key, $course_id]) }}" class="btn btn-sm btn-warning">Details</a></td>
                         </tr>
 
                         @endforeach
