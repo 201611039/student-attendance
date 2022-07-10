@@ -12,6 +12,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseManagementController;
 use App\Http\Controllers\Auth\WebAuthnLoginController;
 use App\Http\Controllers\Auth\WebAuthnRegisterController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,12 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/exam', 'examForm')->name('verification.exam');
         Route::post('/exam', 'examVerify')->name('verification.exam.check');
         Route::get('/exam/verification', 'examFingerprintPage')->name('exam.verification.fingerprint');
+    });
+    
+    Route::controller(StudentController::class)->group(function ()
+    {
+        Route::get('/student-list', 'studentList')->name('student.list');
+        Route::get('/student-fingerprint-enroll/{student?}', 'studentFingerprintEnrollPage')->name('student.enroll');
     });
 
     Route::get('/test', [ExamController::class, 'percentage']);

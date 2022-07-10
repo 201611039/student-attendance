@@ -8,9 +8,6 @@ use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 use Spatie\Permission\Models\Role as ModelsRole;
 
-/**
- * @method static firstOrCreate(array $array)
- */
 class Role extends ModelsRole implements ContractsAuditable
 {
     use HasFactory;

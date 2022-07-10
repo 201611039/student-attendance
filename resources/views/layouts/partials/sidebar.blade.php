@@ -36,6 +36,14 @@
                 ]
             ]),
         ], [
+            'title' => 'Student Management', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('student-view', 'student-fingerprint-enroll'), 'icon' => ' ri-user-settings-line', 'childrens' => collect([
+                [
+                    'title' => 'List', 'url' => route('student.list'), 'permission' => request()->user()->hasAnyPermission('student-view')
+                ], [
+                    'title' => 'Enroll Fingerprint', 'url' => route('student.enroll'), 'permission' => request()->user()->hasAnyPermission('student-fingerprint-enroll')
+                ]
+            ]),
+        ], [
             'title' => 'Attendance', 'url' => 'javascript:void(0)', 'permission' => request()->user()->hasAnyPermission('attendance-take-class'), 'icon' => 'ri-contacts-line ', 'childrens' => collect([
                 [
                     'title' => 'View Attendance', 'url' => route('attendance.list'), 'permission' => request()->user()->hasAnyPermission('attendance-take-class')

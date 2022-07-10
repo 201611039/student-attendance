@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
                 'name' => 'admin', 'permissions' => [
                     ['user', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate']],
                     ['role', 'module' => 'administration', 'action' => ['view', 'add', 'update', 'delete', 'activate', 'deactivate', 'grant-permission']],
+                    ['student', 'module' => 'administration', 'action' => ['view', 'add', 'fingerprint-enroll', 'update', 'delete', 'activate', 'deactivate']],
                     ['college', 'module' => 'administration', 'action' => ['view']],
                     ['department', 'module' => 'administration', 'action' => ['view']],
                     ['programme', 'module' => 'administration', 'action' => ['view']],

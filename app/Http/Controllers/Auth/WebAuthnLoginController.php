@@ -22,6 +22,6 @@ class WebAuthnLoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['guest', 'throttle:10,1']);
+        $this->middleware(['auth', 'throttle:10,1']);
     }
 }
