@@ -75,19 +75,16 @@ class ExamController extends Controller
         $exam->courses()->sync($request->courses);
 
 
-        // TODO: Logics for communication with fingerprint if necessary
-
-
         toastr()->success('Exam session created successfully');
-        return redirect()->route('exam.verification.fingerprint');
+        return redirect()->route('exam.verification.fingerprint', $exam->slug);
     }
 
-    public function examFingerprintPage()
+    public function examFingerprintPage(Exam $exam)
     {
         $this->authorize('attendance-take-exam');
 
         return view('verification.exam-fingerprint', [
-            
+            'exam' => $exam,
         ]);
     }
 

@@ -23,6 +23,10 @@
                             @endif
                         @endforeach
                         
+                        <div id="result" class="alert alert-info" role="alert">
+
+                        </div>
+
                         <form>
                             @csrf
 
@@ -45,13 +49,25 @@
                                     </div>
                                 </div>
 
+                                {{-- <div id="image">
+                                    <canvas id="fingerframe" height="480" width="320"></canvas>
+                                </div> --}}
+
+                                <input hidden value="Enroll FTRAPI(Template)" class="btn btn-warning" id="EnrollBtnFTRAPI" disabled/>
+                                <input type="checkbox" name="isoconv" hidden value="0" id="ConvIsoCheckBox">
+
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Enrole <i class="ri-fingerprint-2-line align-middle"></i></button>
+                                        <button type="button" onclick="beginOperation('enroll', 'ftrapi', true)" class="btn btn-primary waves-effect waves-light w-md">Enrole <i class="ri-fingerprint-2-line align-middle"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                        <div id="resultLinks">
+                            <a id="resultLink" href="http://www.futronic-tech.com" rel="external" media="application/octet-stream">
+                            www.futronic-tech.com
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,6 +83,13 @@
     <script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('assets/libs/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form-element.init.js') }}"></script>
+    <script src="{{ asset('assets/js/furtonic-main.js') }}" defer></script>
+
+    <script>
+        $(document).ready(function () {
+            onBodyLoad();
+        });
+    </script>
 @endpush
 
 @push('link')

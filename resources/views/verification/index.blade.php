@@ -44,16 +44,16 @@
                                     @endif
                                 </td>
                                 <td></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     @if ($exam->deleted_at)
-                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->username }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line"></i></a>
+                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->slug }}').submit()" class="btn btn-info waves-effect waves-light btn-sm"><i class="ri-user-received-line align-middle"></i></a>
                                     @else
-                                        <a href="{{ route('users.edit', $exam->username) }}" class="btn btn-warning waves-effect waves-light btn-sm"><i class="ri-edit-line"></i></a>
-                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->username }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line"></i></a>
+                                        <a href="{{ route('exam.verification.fingerprint', $exam->slug) }}" class="btn btn-primary waves-effect waves-light btn-sm"><i class="ri-eye-line align-middle"></i></a>
+                                        <a href="javascript:void(0)" onclick="$('#{{ $exam->slug }}').submit()" class="btn btn-danger waves-effect waves-light btn-sm"><i class="ri-delete-bin-line align-middle"></i></a>
 
                                     @endif
-                                    <form id="{{ $exam->username }}" action="{{ route('users.destroy', $exam->username) }}" method="post">@csrf @method('DELETE')</form>
-                                </td> --}}
+                                    {{-- <form id="{{ $exam->slug }}" action="{{ route('users.destroy', $exam->slug) }}" method="post">@csrf @method('DELETE')</form> --}}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

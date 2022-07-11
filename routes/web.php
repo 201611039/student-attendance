@@ -83,7 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/exam-verification-list', 'indexExamPage')->name('exam.list');
         Route::get('/exam', 'examForm')->name('verification.exam');
         Route::post('/exam', 'examVerify')->name('verification.exam.check');
-        Route::get('/exam/verification', 'examFingerprintPage')->name('exam.verification.fingerprint');
+        Route::get('/exam/verification/{exam}', 'examFingerprintPage')->name('exam.verification.fingerprint');
     });
     
     Route::controller(StudentController::class)->group(function ()
