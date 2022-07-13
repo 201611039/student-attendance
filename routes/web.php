@@ -83,7 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/exam-verification-list', 'indexExamPage')->name('exam.list');
         Route::get('/exam', 'examForm')->name('verification.exam');
         Route::post('/exam', 'examVerify')->name('verification.exam.check');
-        Route::get('/exam/verification/{exam}', 'examFingerprintPage')->name('exam.verification.fingerprint');
+        Route::get('/exam/verification/{exam}/{condition?}', 'examFingerprintPage')->name('exam.verification.fingerprint');
     });
     
     Route::controller(StudentController::class)->group(function ()
@@ -92,11 +92,19 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/student-fingerprint-enroll/{student?}', 'studentFingerprintEnrollPage')->name('student.enroll');
     });
 
-    Route::get('/test', [ExamController::class, 'percentage']);
-    Route::get('/fingerprint-test', function ()
-    {
-        return view('test');
-    });
+    // Route::get('/test', [ExamController::class, 'percentage']);
+    // Route::get('/fingerprint-test', function ()
+    // {
+    //     // return base64_encode(storage_path('app/fingerprint-template/sample-verify.1'));
+    //     $template = file_get_contents(storage_path('app/fingerprint-template/sample-template.1'));
+    //     $sample = file_get_contents(storage_path('app/fingerprint-template/sample-verify.1'));
+    //     // return strval($template);
+    //     if ((strval($template)) == (strval($sample))) {
+    //         return 1;
+    //     } else {
+    //         return 0;
+    //     }
+    // });
 
 
     Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])

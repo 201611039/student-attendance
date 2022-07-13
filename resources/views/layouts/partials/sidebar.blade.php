@@ -10,8 +10,8 @@
                     'title' => 'Add', 'url' => route('users.create'), 'permission' => request()->user()->hasAnyPermission('user-add')
                 ], [
                     'title' => 'Roles', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
-                ], [
-                    'title' => 'Fingerprint', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
+                // ], [
+                //     'title' => 'Fingerprint', 'url' => route('roles.index'), 'permission' => request()->user()->hasAnyPermission('role-view')
                 ]
             ]),
 

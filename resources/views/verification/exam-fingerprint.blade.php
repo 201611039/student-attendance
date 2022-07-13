@@ -27,6 +27,11 @@
                         <button type="button" onclick="beginOperation('enroll', 'ftrapi', false)" class="btn btn-primary waves-effect waves-light w-md">Verify <i class="ri-fingerprint-2-line align-middle"></i></button>
                     </div>
                 </form>
+                <div id="resultLinks">
+                    <a id="resultLink" href="http://www.futronic-tech.com" rel="external" media="application/octet-stream">
+                    www.futronic-tech.com
+                    </a>
+                </div>
             </div>
         </div>
     </div>
